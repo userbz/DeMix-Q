@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<PARAMETERS version="1.6.2" xsi:noNamespaceSchemaLocation="http://open-ms.sourceforge.net/schemas/Param_1_6_2.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NODE name="info" description="">
+    <ITEM name="version" value="2.0.0" type="string" description="" required="false" advanced="false" />
+    <ITEM name="num_vertices" value="11" type="int" description="" required="false" advanced="false" />
+    <ITEM name="num_edges" value="12" type="int" description="" required="false" advanced="false" />
+    <ITEM name="description" value="&lt;![CDATA[]]&gt;" type="string" description="" required="false" advanced="false" />
+  </NODE>
+  <NODE name="vertices" description="">
+    <NODE name="0" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="input file list" type="string" description="" required="false" advanced="false" />
+      <ITEMLIST name="file_names" type="string" description="" required="false" advanced="false">
+      </ITEMLIST>
+      <ITEM name="x_pos" value="20" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="220" type="double" description="" required="false" advanced="false" />
+    </NODE>
+    <NODE name="8" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_name" value="FeatureFinderCentroided" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_type" value="" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="380" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="540" type="double" description="" required="false" advanced="false" />
+      <NODE name="parameters" description="">
+        <ITEM name="in" value="" type="input-file" description="input file" required="true" advanced="false" supported_formats="*.mzML" />
+        <ITEM name="out" value="" type="output-file" description="output file" required="true" advanced="false" supported_formats="*.featureXML" />
+        <ITEM name="seeds" value="" type="input-file" description="User specified seed list" required="false" advanced="false" supported_formats="*.featureXML" />
+        <ITEM name="out_mzq" value="" type="output-file" description="Optional output file of MzQuantML." required="false" advanced="true" supported_formats="*.mzq" />
+        <ITEM name="log" value="" type="string" description="Name of log file (created only when specified)" required="false" advanced="true" />
+        <ITEM name="debug" value="0" type="int" description="Sets the debug level" required="false" advanced="true" />
+        <ITEM name="threads" value="4" type="int" description="Sets the number of threads allowed to be used by the TOPP tool" required="false" advanced="false" />
+        <ITEM name="no_progress" value="false" type="string" description="Disables progress logging to command line" required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="force" value="false" type="string" description="Overwrite tool specific checks." required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
+        <NODE name="algorithm" description="Algorithm section">
+          <ITEM name="debug" value="false" type="string" description="When debug mode is activated, several files with intermediate results are written to the folder &apos;debug&apos; (do not use in parallel mode)." required="false" advanced="false" restrictions="true,false" />
+          <NODE name="intensity" description="Settings for the calculation of a score indicating if a peak&apos;s intensity is significant in the local environment (between 0 and 1)">
+            <ITEM name="bins" value="10" type="int" description="Number of bins per dimension (RT and m/z). The higher this value, the more local the intensity significance score is.#br#This parameter should be decreased, if the algorithm is used on small regions of a map." required="false" advanced="false" restrictions="1:" />
+          </NODE>
+          <NODE name="mass_trace" description="Settings for the calculation of a score indicating if a peak is part of a mass trace (between 0 and 1).">
+            <ITEM name="mz_tolerance" value="0.01" type="double" description="Tolerated m/z deviation of peaks belonging to the same mass trace.#br#It should be larger than the m/z resolution of the instrument.#br#This value must be smaller than that 1/charge_high!" required="false" advanced="false" restrictions="0:" />
+            <ITEM name="min_spectra" value="7" type="int" description="Number of spectra that have to show a similar peak mass in a mass trace." required="false" advanced="false" restrictions="1:" />
+            <ITEM name="max_missing" value="1" type="int" description="Number of consecutive spectra where a high mass deviation or missing peak is acceptable.#br#This parameter should be well below &apos;min_spectra&apos;!" required="false" advanced="false" restrictions="0:" />
+            <ITEM name="slope_bound" value="0.5" type="double" description="The maximum slope of mass trace intensities when extending from the highest peak.#br#This parameter is important to seperate overlapping elution peaks.#br#It should be increased if feature elution profiles fluctuate a lot." required="false" advanced="false" restrictions="0:" />
+          </NODE>
+          <NODE name="isotopic_pattern" description="Settings for the calculation of a score indicating if a peak is part of a isotopic pattern (between 0 and 1).">
+            <ITEM name="charge_low" value="2" type="int" description="Lowest charge to search for." required="false" advanced="false" restrictions="1:" />
+            <ITEM name="charge_high" value="7" type="int" description="Highest charge to search for." required="false" advanced="false" restrictions="1:" />
+            <ITEM name="mz_tolerance" value="0.005" type="double" description="Tolerated m/z deviation from the theoretical isotopic pattern.#br#It should be larger than the m/z resolution of the instrument.#br#This value must be smaller than that 1/charge_high!" required="false" advanced="false" restrictions="0:" />
+            <ITEM name="intensity_percentage" value="10" type="double" description="Isotopic peaks that contribute more than this percentage to the overall isotope pattern intensity must be present." required="false" advanced="true" restrictions="0:100" />
+            <ITEM name="intensity_percentage_optional" value="0.1" type="double" description="Isotopic peaks that contribute more than this percentage to the overall isotope pattern intensity can be missing." required="false" advanced="true" restrictions="0:100" />
+            <ITEM name="optional_fit_improvement" value="2" type="double" description="Minimal percental improvement of isotope fit to allow leaving out an optional peak." required="false" advanced="true" restrictions="0:100" />
+            <ITEM name="mass_window_width" value="25" type="double" description="Window width in Dalton for precalculation of estimated isotope distributions." required="false" advanced="true" restrictions="1:200" />
+            <ITEM name="abundance_12C" value="98.93" type="double" description="Rel. abundance of the light carbon. Modify if labeled." required="false" advanced="true" restrictions="0:100" />
+            <ITEM name="abundance_14N" value="99.632" type="double" description="Rel. abundance of the light nitrogen. Modify if labeled." required="false" advanced="true" restrictions="0:100" />
+          </NODE>
+          <NODE name="seed" description="Settings that determine which peaks are considered a seed">
+            <ITEM name="min_score" value="0.8" type="double" description="Minimum seed score a peak has to reach to be used as seed.#br#The seed score is the geometric mean of intensity score, mass trace score and isotope pattern score.#br#If your features show a large deviation from the averagene isotope distribution or from an gaussian elution profile, lower this score." required="false" advanced="false" restrictions="0:1" />
+          </NODE>
+          <NODE name="fit" description="Settings for the model fitting">
+            <ITEM name="max_iterations" value="500" type="int" description="Maximum number of iterations of the fit." required="false" advanced="true" restrictions="1:" />
+          </NODE>
+          <NODE name="feature" description="Settings for the features (intensity, quality assessment, ...)">
+            <ITEM name="min_score" value="0.7" type="double" description="Feature score threshold for a feature to be reported.#br#The feature score is the geometric mean of the average relative deviation and the correlation between the model and the observed peaks." required="false" advanced="false" restrictions="0:1" />
+            <ITEM name="min_isotope_fit" value="0.8" type="double" description="Minimum isotope fit of the feature before model fitting." required="false" advanced="true" restrictions="0:1" />
+            <ITEM name="min_trace_score" value="0.5" type="double" description="Trace score threshold.#br#Traces below this threshold are removed after the model fitting.#br#This parameter is important for features that overlap in m/z dimension." required="false" advanced="true" restrictions="0:1" />
+            <ITEM name="min_rt_span" value="0.3" type="double" description="Minimum RT span in relation to extended area that has to remain after model fitting." required="false" advanced="true" restrictions="0:1" />
+            <ITEM name="max_rt_span" value="3" type="double" description="Maximum RT span in relation to extended area that the model is allowed to have." required="false" advanced="true" restrictions="0.5:" />
+            <ITEM name="rt_shape" value="symmetric" type="string" description="Choose model used for RT profile fitting. If set to symmetric a gauss shape is used, in case of asymmetric an EGH shape is used." required="false" advanced="true" restrictions="symmetric,asymmetric" />
+            <ITEM name="max_intersection" value="0.8" type="double" description="Maximum allowed intersection of features." required="false" advanced="true" restrictions="0:1" />
+            <ITEM name="reported_mz" value="monoisotopic" type="string" description="The mass type that is reported for features.#br#&apos;maximum&apos; returns the m/z value of the highest mass trace.#br#&apos;average&apos; returns the intensity-weighted average m/z value of all contained peaks.#br#&apos;monoisotopic&apos; returns the monoisotopic m/z value derived from the fitted isotope model." required="false" advanced="false" restrictions="maximum,average,monoisotopic" />
+          </NODE>
+          <NODE name="user-seed" description="Settings for user-specified seeds.">
+            <ITEM name="rt_tolerance" value="5" type="double" description="Allowed RT deviation of seeds from the user-specified seed position." required="false" advanced="false" restrictions="0:" />
+            <ITEM name="mz_tolerance" value="1.1" type="double" description="Allowed m/z deviation of seeds from the user-specified seed position." required="false" advanced="false" restrictions="0:" />
+            <ITEM name="min_score" value="0.5" type="double" description="Overwrites &apos;seed:min_score&apos; for user-specified seeds. The cutoff is typically a bit lower in this case." required="false" advanced="false" restrictions="0:1" />
+          </NODE>
+          <NODE name="debug" description="">
+            <ITEM name="pseudo_rt_shift" value="500" type="double" description="Pseudo RT shift used when ." required="false" advanced="true" restrictions="1:" />
+          </NODE>
+        </NODE>
+      </NODE>
+    </NODE>
+    <NODE name="1" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_name" value="FileFilter" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_type" value="" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="20" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="380" type="double" description="" required="false" advanced="false" />
+      <NODE name="parameters" description="">
+        <ITEM name="in" value="" type="input-file" description="Input file" required="true" advanced="false" supported_formats="*.mzML,*.featureXML,*.consensusXML" />
+        <ITEM name="in_type" value="" type="string" description="Input file type -- default: determined from file extension or content" required="false" advanced="false" restrictions="mzML,featureXML,consensusXML" />
+        <ITEM name="out" value="" type="output-file" description="Output file" required="true" advanced="false" supported_formats="*.mzML,*.featureXML,*.consensusXML" />
+        <ITEM name="out_type" value="" type="string" description="Output file type -- default: determined from file extension or content" required="false" advanced="false" restrictions="mzML,featureXML,consensusXML" />
+        <ITEM name="rt" value=":" type="string" description="Retention time range to extract" required="false" advanced="false" />
+        <ITEM name="mz" value=":" type="string" description="m/z range to extract (applies to ALL ms levels!)" required="false" advanced="false" />
+        <ITEM name="pc_mz" value=":" type="string" description="MSn (n&gt;=2) precursor filtering according to their m/z value. Do not use this flag in conjunction with &apos;mz&apos;, unless you want to actually remove peaks in spectra (see &apos;mz&apos;). RT filtering is covered by &apos;rt&apos; and compatible with this flag." required="false" advanced="false" />
+        <ITEM name="int" value=":" type="string" description="Intensity range to extract" required="false" advanced="false" />
+        <ITEM name="sort" value="false" type="string" description="Sorts the output according to RT and m/z." required="false" advanced="false" restrictions="true,false" />
+        <ITEM name="log" value="" type="string" description="Name of log file (created only when specified)" required="false" advanced="true" />
+        <ITEM name="debug" value="0" type="int" description="Sets the debug level" required="false" advanced="true" />
+        <ITEM name="threads" value="4" type="int" description="Sets the number of threads allowed to be used by the TOPP tool" required="false" advanced="false" />
+        <ITEM name="no_progress" value="false" type="string" description="Disables progress logging to command line" required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="force" value="false" type="string" description="Overwrite tool specific checks." required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
+        <NODE name="peak_options" description="Peak data options">
+          <ITEM name="sn" value="0" type="double" description="Write peaks with S/N &gt; &apos;sn&apos; values only" required="false" advanced="false" />
+          <ITEMLIST name="rm_pc_charge" type="int" description="Remove MS(2) spectra with these precursor charges. All spectra without precursor are kept!" required="false" advanced="false">
+          </ITEMLIST>
+          <ITEMLIST name="level" type="int" description="MS levels to extract" required="false" advanced="false">
+            <LISTITEM value="1"/>
+          </ITEMLIST>
+          <ITEM name="sort_peaks" value="false" type="string" description="Sorts the peaks according to m/z" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="no_chromatograms" value="false" type="string" description="No conversion to space-saving real chromatograms, e.g. from SRM scans" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="remove_chromatograms" value="false" type="string" description="Removes chromatograms stored in a file" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="mz_precision" value="64" type="string" description="Store base64 encoded m/z data using 32 or 64 bit precision" required="false" advanced="false" restrictions="32,64" />
+          <ITEM name="int_precision" value="32" type="string" description="Store base64 encoded intensity data using 32 or 64 bit precision" required="false" advanced="false" restrictions="32,64" />
+          <ITEM name="indexed_file" value="false" type="string" description="Whether to add an index to the file when writing" required="false" advanced="false" restrictions="true,false" />
+          <NODE name="numpress" description="Numpress compression for peak data">
+            <ITEM name="masstime" value="none" type="string" description="Apply MS Numpress compression algorithms in m/z or rt dimension (recommended: linear)" required="false" advanced="false" restrictions="none,linear,pic,slof" />
+            <ITEM name="masstime_error" value="0.0001" type="double" description="Maximal allowable error in m/z or rt dimension (set to 0.5 for pic)" required="false" advanced="false" />
+            <ITEM name="intensity" value="none" type="string" description="Apply MS Numpress compression algorithms in intensity dimension (recommended: slof or pic)" required="false" advanced="false" restrictions="none,linear,pic,slof" />
+            <ITEM name="intensity_error" value="0.0001" type="double" description="Maximal allowable error in intensity dimension (set to 0.5 for pic)" required="false" advanced="false" />
+          </NODE>
+        </NODE>
+        <NODE name="spectra" description="Remove spectra or select spectra (removing all others) with certain properties">
+          <ITEM name="remove_zoom" value="false" type="string" description="Remove zoom (enhanced resolution) scans" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="remove_mode" value="" type="string" description="Remove scans by scan mode" required="false" advanced="false" restrictions="Unknown,MassSpectrum,MS1Spectrum,MSnSpectrum,SelectedIonMonitoring,SelectedReactionMonitoring,ConsecutiveReactionMonitoring,ConstantNeutralGain,ConstantNeutralLoss,Precursor,EnhancedMultiplyCharged,TimeDelayedFragmentation,ElectromagneticRadiation,Emission,Absorbtion" />
+          <ITEM name="remove_activation" value="" type="string" description="Remove MSn scans where any of its precursors features a certain activation method" required="false" advanced="false" restrictions="Collision-induced dissociation,Post-source decay,Plasma desorption,Surface-induced dissociation,Blackbody infrared radiative dissociation,Electron capture dissociation,Infrared multiphoton dissociation,Sustained off-resonance irradiation,High-energy collision-induced dissociation,Low-energy collision-induced dissociation,Photodissociation,Electron transfer dissociation,Pulsed q dissociation" />
+          <ITEM name="remove_collision_energy" value=":" type="string" description="Remove MSn scans with a collision energy in the given interval" required="false" advanced="false" />
+          <ITEM name="remove_isolation_window_width" value=":" type="string" description="Remove MSn scans whose isolation window width is in the given interval" required="false" advanced="false" />
+          <ITEM name="select_zoom" value="false" type="string" description="Select zoom (enhanced resolution) scans" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="select_mode" value="" type="string" description="Selects scans by scan mode#br#" required="false" advanced="false" restrictions="Unknown,MassSpectrum,MS1Spectrum,MSnSpectrum,SelectedIonMonitoring,SelectedReactionMonitoring,ConsecutiveReactionMonitoring,ConstantNeutralGain,ConstantNeutralLoss,Precursor,EnhancedMultiplyCharged,TimeDelayedFragmentation,ElectromagneticRadiation,Emission,Absorbtion" />
+          <ITEM name="select_activation" value="" type="string" description="Retain MSn scans where any of its precursors features a certain activation method" required="false" advanced="false" restrictions="Collision-induced dissociation,Post-source decay,Plasma desorption,Surface-induced dissociation,Blackbody infrared radiative dissociation,Electron capture dissociation,Infrared multiphoton dissociation,Sustained off-resonance irradiation,High-energy collision-induced dissociation,Low-energy collision-induced dissociation,Photodissociation,Electron transfer dissociation,Pulsed q dissociation" />
+          <ITEM name="select_collision_energy" value=":" type="string" description="Select MSn scans with a collision energy in the given interval" required="false" advanced="false" />
+          <ITEM name="select_isolation_window_width" value=":" type="string" description="Select MSn scans whose isolation window width is in the given interval" required="false" advanced="false" />
+          <ITEM name="select_polarity" value="" type="string" description="Retain MSn scans with a certain scan polarity" required="false" advanced="false" restrictions="unknown,positive,negative" />
+        </NODE>
+        <NODE name="feature" description="Feature data options">
+          <ITEM name="q" value=":" type="string" description="Overall quality range to extract [0:1]" required="false" advanced="false" />
+        </NODE>
+        <NODE name="consensus" description="Consensus feature data options">
+          <ITEMLIST name="map" type="int" description="Maps to be extracted from a consensus" required="false" advanced="false">
+          </ITEMLIST>
+          <ITEM name="map_and" value="false" type="string" description="Consensus features are kept only if they contain exactly one feature from each map (as given above in &apos;map&apos;)" required="false" advanced="false" restrictions="true,false" />
+          <NODE name="blackorwhitelist" description="Black or white listing of of MS2 spectra by consensus features">
+            <ITEM name="blacklist" value="true" type="string" description="True: remove matched MS2. False: retain matched MS2 spectra. Other levels are kept" required="false" advanced="false" restrictions="false,true" />
+            <ITEM name="file" value="" type="input-file" description="Input file containing consensus features whose corresponding MS2 spectra should be removed from the mzML file!#br#Matching tolerances are taken from &apos;consensus:blackorwhitelist:rt&apos; and &apos;consensus:blackorwhitelist:mz&apos; options.#br#If consensus:blackorwhitelist:maps is specified, only these will be used.#br#" required="false" advanced="false" supported_formats="*.consensusXML" />
+            <ITEMLIST name="maps" type="int" description="Maps used for black/white list filtering" required="false" advanced="false">
+            </ITEMLIST>
+            <ITEM name="rt" value="60" type="double" description="Retention tolerance [s] for precursor to consensus feature position" required="false" advanced="false" restrictions="0:" />
+            <ITEM name="mz" value="0.01" type="double" description="m/z tolerance [Th] for precursor to consensus feature position" required="false" advanced="false" restrictions="0:" />
+            <ITEM name="use_ppm_tolerance" value="false" type="string" description="If ppm tolerance should be used. Otherwise Da are used." required="false" advanced="false" restrictions="false,true" />
+          </NODE>
+        </NODE>
+        <NODE name="f_and_c" description="Feature &amp; Consensus data options">
+          <ITEM name="charge" value=":" type="string" description="Charge range to extract" required="false" advanced="false" />
+          <ITEM name="size" value=":" type="string" description="Size range to extract" required="false" advanced="false" />
+          <ITEMLIST name="remove_meta" type="string" description="Expects a 3-tuple (=3 entries in the list), i.e. &lt;name&gt; &apos;lt|eq|gt&apos; &lt;value&gt;; the first is the name of meta value, followed by the comparison operator (equal, less or greater) and the value to compare to. All comparisons are done after converting the given value to the corresponding data value type of the meta value (for lists, this simply compares length, not content!)!" required="false" advanced="false">
+          </ITEMLIST>
+        </NODE>
+        <NODE name="id" description="ID options. The Priority of the id-flags is: remove_annotated_features / remove_unannotated_features -&gt; remove_clashes -&gt; keep_best_score_id -&gt; sequences_whitelist / accessions_whitelist">
+          <ITEM name="remove_clashes" value="false" type="string" description="Remove features with id clashes (different sequences mapped to one feature)" required="false" advanced="true" restrictions="true,false" />
+          <ITEM name="keep_best_score_id" value="false" type="string" description="in case of multiple peptide identifications, keep only the id with best score" required="false" advanced="false" restrictions="true,false" />
+          <ITEMLIST name="sequences_whitelist" type="string" description="keep only features with white listed sequences, e.g. LYSNLVER or the modification (Oxidation)" required="false" advanced="false">
+          </ITEMLIST>
+          <ITEMLIST name="accessions_whitelist" type="string" description="keep only features with white listed accessions, e.g. sp|P02662|CASA1_BOVIN" required="false" advanced="false">
+          </ITEMLIST>
+          <ITEM name="remove_annotated_features" value="false" type="string" description="Remove features with annotations" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="remove_unannotated_features" value="false" type="string" description="Remove features without annotations" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="remove_unassigned_ids" value="false" type="string" description="Remove unassigned peptide identifications" required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="blacklist" value="" type="input-file" description="Input file containing MS2 identifications whose corresponding MS2 spectra should be removed from the mzML file!#br#Matching tolerances are taken from &apos;id:rt&apos; and &apos;id:mz&apos; options.#br#This tool will require all IDs to be matched to an MS2 spectrum, and quit with error otherwise. Use &apos;id:blacklist_imperfect&apos; to allow for mismatches." required="false" advanced="false" supported_formats="*.idXML" />
+          <ITEM name="rt" value="0.1" type="double" description="Retention tolerance [s] for precursor to id position" required="false" advanced="false" restrictions="0:" />
+          <ITEM name="mz" value="0.001" type="double" description="m/z tolerance [Th] for precursor to id position" required="false" advanced="false" restrictions="0:" />
+          <ITEM name="blacklist_imperfect" value="false" type="string" description="Allow for mismatching precursor positions (see &apos;id:blacklist&apos;)" required="false" advanced="false" restrictions="true,false" />
+        </NODE>
+        <NODE name="algorithm" description="S/N algorithm section">
+          <NODE name="SignalToNoise" description="">
+            <ITEM name="max_intensity" value="-1" type="int" description="maximal intensity considered for histogram construction. By default, it will be calculated automatically (see auto_mode). Only provide this parameter if you know what you are doing (and change &apos;auto_mode&apos; to &apos;-1&apos;)! All intensities EQUAL/ABOVE &apos;max_intensity&apos; will be added to the LAST histogram bin. If you choose &apos;max_intensity&apos; too small, the noise estimate might be too small as well.  If chosen too big, the bins become quite large (which you could counter by increasing &apos;bin_count&apos;, which increases runtime). In general, the Median-S/N estimator is more robust to a manual max_intensity than the MeanIterative-S/N." required="false" advanced="true" restrictions="-1:" />
+            <ITEM name="auto_max_stdev_factor" value="3" type="double" description="parameter for &apos;max_intensity&apos; estimation (if &apos;auto_mode&apos; == 0): mean + &apos;auto_max_stdev_factor&apos; * stdev" required="false" advanced="true" restrictions="0:999" />
+            <ITEM name="auto_max_percentile" value="95" type="int" description="parameter for &apos;max_intensity&apos; estimation (if &apos;auto_mode&apos; == 1): auto_max_percentile th percentile" required="false" advanced="true" restrictions="0:100" />
+            <ITEM name="auto_mode" value="0" type="int" description="method to use to determine maximal intensity: -1 --&gt; use &apos;max_intensity&apos;; 0 --&gt; &apos;auto_max_stdev_factor&apos; method (default); 1 --&gt; &apos;auto_max_percentile&apos; method" required="false" advanced="true" restrictions="-1:1" />
+            <ITEM name="win_len" value="200" type="double" description="window length in Thomson" required="false" advanced="false" restrictions="1:" />
+            <ITEM name="bin_count" value="30" type="int" description="number of bins for intensity values" required="false" advanced="false" restrictions="3:" />
+            <ITEM name="min_required_elements" value="10" type="int" description="minimum number of elements required in a window (otherwise it is considered sparse)" required="false" advanced="false" restrictions="1:" />
+            <ITEM name="noise_for_empty_window" value="1e+020" type="double" description="noise value used for sparse windows" required="false" advanced="true" />
+          </NODE>
+        </NODE>
+      </NODE>
+    </NODE>
+    <NODE name="4" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_name" value="InternalCalibration" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_type" value="" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="200" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="380" type="double" description="" required="false" advanced="false" />
+      <NODE name="parameters" description="">
+        <ITEM name="in" value="" type="input-file" description="input peak file " required="true" advanced="false" supported_formats="*.mzML,*.featureXML" />
+        <ITEM name="out" value="" type="output-file" description="output file " required="true" advanced="false" supported_formats="*.mzML,*.featureXML" />
+        <ITEM name="ref_peaks" value="" type="input-file" description="input file containing reference m/z values (either as textfile with one m/z per line and no header or as idXML file)" required="false" advanced="false" supported_formats="*.csv,*.idXML" />
+        <ITEM name="type" value="global" type="string" description="The kind of internal calibration that should be applied." required="false" advanced="false" restrictions="spectrumwise,global" />
+        <ITEM name="trafo" value="" type="output-file" description="output transformation file (only for global calibration)" required="false" advanced="false" supported_formats="*.trafoXML" />
+        <ITEM name="log" value="" type="string" description="Name of log file (created only when specified)" required="false" advanced="true" />
+        <ITEM name="debug" value="0" type="int" description="Sets the debug level" required="false" advanced="true" />
+        <ITEM name="threads" value="1" type="int" description="Sets the number of threads allowed to be used by the TOPP tool" required="false" advanced="false" />
+        <ITEM name="no_progress" value="false" type="string" description="Disables progress logging to command line" required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
+        <NODE name="algorithm" description="Settings for the internal calibration.">
+          <ITEM name="mz_tolerance" value="5" type="double" description="Allowed tolerance between peak and reference m/z." required="false" advanced="false" restrictions="0:" />
+          <ITEM name="mz_tolerance_unit" value="ppm" type="string" description="Unit for mz_tolerance." required="false" advanced="false" restrictions="Da,ppm" />
+          <ITEM name="rt_tolerance" value="10" type="int" description="Allowed tolerance between peak and reference rt." required="false" advanced="false" />
+        </NODE>
+      </NODE>
+    </NODE>
+    <NODE name="2" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="input file list" type="string" description="" required="false" advanced="false" />
+      <ITEMLIST name="file_names" type="string" description="" required="false" advanced="false">
+      </ITEMLIST>
+      <ITEM name="x_pos" value="200" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="220" type="double" description="" required="false" advanced="false" />
+    </NODE>
+    <NODE name="6" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_name" value="MapRTTransformer" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_type" value="" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="200" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="540" type="double" description="" required="false" advanced="false" />
+      <NODE name="parameters" description="">
+        <ITEMLIST name="in" type="input-file" description="Input files to transform (separated by blanks)" required="false" advanced="false" supported_formats="*.mzML,*.featureXML,*.consensusXML,*.idXML">
+        </ITEMLIST>
+        <ITEMLIST name="out" type="output-file" description="Output files separated by blanks. Either this option or &apos;trafo_out&apos; have to be provided. They can be used together." required="false" advanced="false" supported_formats="*.mzML,*.featureXML,*.consensusXML,*.idXML">
+        </ITEMLIST>
+        <ITEMLIST name="trafo_in" type="input-file" description="Transformations to apply (files separated by blanks)" required="true" advanced="false" supported_formats="*.trafoXML">
+        </ITEMLIST>
+        <ITEMLIST name="trafo_out" type="output-file" description="Transformation output files separated by blanks. Either this option or &apos;out&apos; have to be provided. They can be used together." required="false" advanced="false" supported_formats="*.trafoXML">
+        </ITEMLIST>
+        <ITEM name="invert" value="false" type="string" description="Invert transformations (approximatively) before applying them" required="false" advanced="false" restrictions="true,false" />
+        <ITEM name="log" value="" type="string" description="Name of log file (created only when specified)" required="false" advanced="true" />
+        <ITEM name="debug" value="0" type="int" description="Sets the debug level" required="false" advanced="true" />
+        <ITEM name="threads" value="4" type="int" description="Sets the number of threads allowed to be used by the TOPP tool" required="false" advanced="false" />
+        <ITEM name="no_progress" value="false" type="string" description="Disables progress logging to command line" required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
+        <NODE name="model" description="Options to control the modeling of retention time transformations from data">
+          <ITEM name="type" value="b_spline" type="string" description="Type of model" required="false" advanced="false" restrictions="none,linear,b_spline,interpolated" />
+          <NODE name="linear" description="Parameters for &apos;linear&apos; model">
+            <ITEM name="symmetric_regression" value="true" type="string" description="Perform linear regression on &apos;y - x&apos; vs. &apos;y + x&apos;, instead of on &apos;y&apos; vs. &apos;x&apos;." required="false" advanced="false" restrictions="true,false" />
+          </NODE>
+          <NODE name="b_spline" description="Parameters for &apos;b_spline&apos; model">
+            <ITEM name="num_breakpoints" value="5" type="int" description="Number of breakpoints of the cubic spline in the smoothing step. More breakpoints mean less smoothing. Reduce this number if the transformation has an unexpected shape." required="false" advanced="false" restrictions="2:" />
+            <ITEM name="break_positions" value="quantiles" type="string" description="How to distribute the breakpoints on the retention time scale. &apos;uniform&apos;: intervals of equal size; &apos;quantiles&apos;: equal number of data points per interval." required="false" advanced="false" restrictions="uniform,quantiles" />
+          </NODE>
+          <NODE name="interpolated" description="Parameters for &apos;interpolated&apos; model">
+            <ITEM name="interpolation_type" value="cspline" type="string" description="Type of interpolation to apply." required="false" advanced="false" restrictions="linear,cspline,akima" />
+          </NODE>
+        </NODE>
+      </NODE>
+    </NODE>
+    <NODE name="5" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_name" value="MapAlignerIdentification" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_type" value="" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="380" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="380" type="double" description="" required="false" advanced="false" />
+      <NODE name="parameters" description="">
+        <ITEMLIST name="in" type="input-file" description="Input files separated by blanks (all must have the same file type)" required="true" advanced="false" supported_formats="*.featureXML,*.consensusXML,*.idXML">
+        </ITEMLIST>
+        <ITEMLIST name="out" type="output-file" description="Output files separated by blanks. Either &apos;out&apos; or &apos;trafo_out&apos; has to be provided. They can be used together." required="false" advanced="false" supported_formats="*.featureXML,*.consensusXML,*.idXML">
+        </ITEMLIST>
+        <ITEMLIST name="trafo_out" type="output-file" description="Transformation output files separated by blanks. Either &apos;out&apos; or &apos;trafo_out&apos; has to be provided. They can be used together." required="false" advanced="false" supported_formats="*.trafoXML">
+        </ITEMLIST>
+        <ITEM name="log" value="" type="string" description="Name of log file (created only when specified)" required="false" advanced="true" />
+        <ITEM name="debug" value="0" type="int" description="Sets the debug level" required="false" advanced="true" />
+        <ITEM name="threads" value="4" type="int" description="Sets the number of threads allowed to be used by the TOPP tool" required="false" advanced="false" />
+        <ITEM name="no_progress" value="false" type="string" description="Disables progress logging to command line" required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="force" value="false" type="string" description="Overwrite tool specific checks." required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
+        <NODE name="reference" description="Options to define a reference file (use either &apos;file&apos; or &apos;index&apos;, not both; if neither is given &apos;index&apos; is used).">
+          <ITEM name="file" value="" type="input-file" description="File to use as reference (same file format as input files required)" required="false" advanced="false" supported_formats="*.featureXML,*.consensusXML,*.idXML" />
+          <ITEM name="index" value="0" type="int" description="Use one of the input files as reference (&apos;1&apos; for the first file, etc.).#br#If &apos;0&apos;, no explicit reference is set - the algorithm will select a reference." required="false" advanced="false" restrictions="0:" />
+        </NODE>
+        <NODE name="algorithm" description="Algorithm parameters section">
+          <ITEM name="peptide_score_threshold" value="0" type="double" description="Score threshold for peptide hits to be used in the alignment.#br#Select a value that allows only &apos;high confidence&apos; matches." required="false" advanced="false" />
+          <ITEM name="min_run_occur" value="2" type="int" description="Minimum number of runs (incl. reference, if any) a peptide must occur in to be used for the alignment.#br#Unless you have very few runs or identifications, increase this value to focus on more informative peptides." required="false" advanced="false" restrictions="2:" />
+          <ITEM name="max_rt_shift" value="0.5" type="double" description="Maximum realistic RT difference for a peptide (median per run vs. reference). Peptides with higher shifts (outliers) are not used to compute the alignment.#br#If 0, no limit (disable filter); if &gt; 1, the final value in seconds; if &lt;= 1, taken as a fraction of the range of the reference RT scale." required="false" advanced="false" restrictions="0:" />
+          <ITEM name="use_unassigned_peptides" value="true" type="string" description="Should unassigned peptide identifications be used when computing an alignment of feature maps? If &apos;false&apos;, only peptide IDs assigned to features will be used." required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="use_feature_rt" value="false" type="string" description="When aligning feature maps, don&apos;t use the retention time of a peptide identification directly; instead, use the retention time of the centroid of the feature (apex of the elution profile) that the peptide was matched to. If different identifications are matched to one feature, only the peptide closest to the centroid in RT is used.#br#Precludes &apos;use_unassigned_peptides&apos;." required="false" advanced="false" restrictions="true,false" />
+        </NODE>
+        <NODE name="model" description="Options to control the modeling of retention time transformations from data">
+          <ITEM name="type" value="b_spline" type="string" description="Type of model" required="false" advanced="false" restrictions="linear,b_spline,interpolated" />
+          <NODE name="linear" description="Parameters for &apos;linear&apos; model">
+            <ITEM name="symmetric_regression" value="false" type="string" description="Perform linear regression on &apos;y - x&apos; vs. &apos;y + x&apos;, instead of on &apos;y&apos; vs. &apos;x&apos;." required="false" advanced="false" restrictions="true,false" />
+          </NODE>
+          <NODE name="b_spline" description="Parameters for &apos;b_spline&apos; model">
+            <ITEM name="wavelength" value="0" type="double" description="Determines the amount of smoothing by setting the number of nodes for the B-spline. The number is chosen so that the spline approximates a low-pass filter with this cutoff wavelength. The wavelength is given in the same units as the data; a higher value means more smoothing. &apos;0&apos; sets the number of nodes to twice the number of input points." required="false" advanced="false" restrictions="0:" />
+            <ITEM name="num_nodes" value="5" type="int" description="Number of nodes for B-spline fitting. Overrides &apos;wavelength&apos; if set (to two or greater). A lower value means more smoothing." required="false" advanced="false" restrictions="0:" />
+            <ITEM name="extrapolate" value="linear" type="string" description="Method to use for extrapolation beyond the original data range. &apos;linear&apos;: Linear extrapolation using the slope of the B-spline at the corresponding endpoint. &apos;b_spline&apos;: Use the B-spline (as for interpolation). &apos;constant&apos;: Use the constant value of the B-spline at the corresponding endpoint. &apos;global_linear&apos;: Use a linear fit through the data (which will most probably introduce discontinuities at the ends of the data range)." required="false" advanced="false" restrictions="linear,b_spline,constant,global_linear" />
+            <ITEM name="boundary_condition" value="2" type="int" description="Boundary condition at B-spline endpoints: 0 (value zero), 1 (first derivative zero) or 2 (second derivative zero)" required="false" advanced="false" restrictions="0:2" />
+          </NODE>
+          <NODE name="interpolated" description="Parameters for &apos;interpolated&apos; model">
+            <ITEM name="interpolation_type" value="cspline" type="string" description="Type of interpolation to apply." required="false" advanced="false" restrictions="linear,cspline,akima" />
+          </NODE>
+        </NODE>
+      </NODE>
+    </NODE>
+    <NODE name="3" description="">
+      <ITEM name="recycle_output" value="true" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="input file list" type="string" description="" required="false" advanced="false" />
+      <ITEMLIST name="file_names" type="string" description="" required="false" advanced="false">
+      </ITEMLIST>
+      <ITEM name="x_pos" value="380" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="220" type="double" description="" required="false" advanced="false" />
+    </NODE>
+    <NODE name="9" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_name" value="IDMapper" type="string" description="" required="false" advanced="false" />
+      <ITEM name="tool_type" value="" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="560" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="540" type="double" description="" required="false" advanced="false" />
+      <NODE name="parameters" description="">
+        <ITEM name="id" value="" type="input-file" description="Protein/peptide identifications file" required="true" advanced="false" supported_formats="*.idXML" />
+        <ITEM name="in" value="" type="input-file" description="Feature map/consensus map file" required="true" advanced="false" supported_formats="*.featureXML,*.consensusXML,*.mzq" />
+        <ITEM name="out" value="" type="output-file" description="Output file (the format depends on the input file format)." required="true" advanced="false" supported_formats="*.featureXML,*.consensusXML,*.mzq" />
+        <ITEM name="rt_tolerance" value="15" type="double" description="RT tolerance (in seconds) for the matching of peptide identifications and (consensus) features.#br#Tolerance is understood as &apos;plus or minus x&apos;, so the matching range increases by twice the given value." required="false" advanced="false" restrictions="0:" />
+        <ITEM name="mz_tolerance" value="5" type="double" description="m/z tolerance (in ppm or Da) for the matching of peptide identifications and (consensus) features.#br#Tolerance is understood as &apos;plus or minus x&apos;, so the matching range increases by twice the given value." required="false" advanced="false" restrictions="0:" />
+        <ITEM name="mz_measure" value="ppm" type="string" description="Unit of &apos;mz_tolerance&apos;." required="false" advanced="false" restrictions="ppm,Da" />
+        <ITEM name="mz_reference" value="precursor" type="string" description="Source of m/z values for peptide identifications. If &apos;precursor&apos;, the precursor-m/z from the idXML is used. If &apos;peptide&apos;,#br#masses are computed from the sequences of peptide hits; in this case, an identification matches if any of its hits matches.#br#(&apos;peptide&apos; should be used together with &apos;feature:use_centroid_mz&apos; to avoid false-positive matches.)" required="false" advanced="false" restrictions="precursor,peptide" />
+        <ITEM name="ignore_charge" value="false" type="string" description="For feature/consensus maps: Assign an ID independently of whether its charge state matches that of the (consensus) feature." required="false" advanced="false" restrictions="true,false" />
+        <ITEM name="log" value="" type="string" description="Name of log file (created only when specified)" required="false" advanced="true" />
+        <ITEM name="debug" value="0" type="int" description="Sets the debug level" required="false" advanced="true" />
+        <ITEM name="threads" value="4" type="int" description="Sets the number of threads allowed to be used by the TOPP tool" required="false" advanced="false" />
+        <ITEM name="no_progress" value="false" type="string" description="Disables progress logging to command line" required="false" advanced="true" restrictions="true,false" />
+        <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
+        <NODE name="feature" description="Additional options for featureXML input">
+          <ITEM name="use_centroid_rt" value="false" type="string" description="Use the RT coordinates of the feature centroids for matching, instead of the RT ranges of the features/mass traces." required="false" advanced="false" restrictions="true,false" />
+          <ITEM name="use_centroid_mz" value="true" type="string" description="Use the m/z coordinates of the feature centroids for matching, instead of the m/z ranges of the features/mass traces.#br#(If you choose &apos;peptide&apos; as &apos;mz_reference&apos;, you should usually set this flag to avoid false-positive matches.)" required="false" advanced="false" restrictions="true,false" />
+        </NODE>
+        <NODE name="consensus" description="Additional options for consensusXML input">
+          <ITEM name="use_subelements" value="false" type="string" description="Match using RT and m/z of sub-features instead of consensus RT and m/z. A consensus feature matches if any of its sub-features matches." required="false" advanced="false" restrictions="true,false" />
+        </NODE>
+      </NODE>
+    </NODE>
+    <NODE name="7" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="output file list" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="200" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="680" type="double" description="" required="false" advanced="false" />
+    </NODE>
+    <NODE name="10" description="">
+      <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
+      <ITEM name="toppas_type" value="output file list" type="string" description="" required="false" advanced="false" />
+      <ITEM name="x_pos" value="560" type="double" description="" required="false" advanced="false" />
+      <ITEM name="y_pos" value="680" type="double" description="" required="false" advanced="false" />
+    </NODE>
+  </NODE>
+  <NODE name="edges" description="">
+    <NODE name="0" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="0/1" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="1" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="1/4" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="2" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="2/4" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="ref_peaks" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="3" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="4/6" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="4" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="3/5" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="reference:file" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="5" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="5/6" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="trafo_out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="trafo_in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="6" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="5/9" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="id" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="7" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="6/8" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="8" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="8/9" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="9" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="6/7" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="10" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="2/5" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="11" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="9/10" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+  </NODE>
+</PARAMETERS>
