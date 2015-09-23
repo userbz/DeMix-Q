@@ -1,0 +1,52 @@
+<ttd>
+	<tool status="external">
+		<category>Utility</category>
+		<type>Consensus2EDTA</type>
+		
+	<external>
+      <text>
+        <onstartup> Generating target list... </onstartup>
+        <onfail> Failed! </onfail>
+        <onfinish> Done! </onfinish>
+      </text>
+		  <e_category>Utility</e_category>
+
+		  // command line options of your external tool (use placeholders ,e.g. %1 to insert dynamic content)
+		  <cloptions>%1 %2 %3 %4 %5</cloptions>
+
+		  // the actual executable (usually it should be in your PATH, to avoid having to specify a full path to it)
+		  <path>python</path>
+
+
+      // sets the working directory to this path before calling the external tool. Some tools write to the current working directory
+      // and thus starting the tool from somewhere else might actually lead to trouble
+      // use only real paths here (no placeholders like %TMP)
+      <workingdirectory>.</workingdirectory>
+
+		  // these mappings connect input parameters (from the 'ini_param' section below) and the command line options of your tool
+		  // any INI parameter can be referenced using %%'param_name', e.g. %%in
+		  // additionally you can use %TMP and %BASENAME[X] to get the current temp directory to store data, or the basename of X
+		  <mappings>
+			<mapping id="1" cl="%%converter_script" />
+			<mapping id="2" cl="%%in" />
+			<mapping id="3" cl="%%decoy_RT_shift" />
+			<mapping id="4" cl="%%decoy_mz_shift" />
+			<mapping id="5" cl="%TMP" />
+
+			<file_post location="%TMP/%BASENAME[%%in].edta" target="out" />
+
+		  </mappings>
+
+
+		  <ini_param>
+			<ITEM name="converter_script" value="" type="string" description="path to converter script" tags="input file" />
+			<ITEM name="in" value="" type="string" description="consensus feature list from TextExporter (out)" tags="input file" />
+			<ITEM name="decoy_mz_shift" value="50" type="float" description="m/z shift (PPM) for generating decoy features with 1 PPM random noise" />
+			<ITEM name="decoy_RT_shift" value="300" type="float" description="RT shift (second) for generating decoy features with 5 second random noise" />
+			
+			<ITEM name="out" value="" type="string" description="output file in mgf format(valid formats: &apos;edta&apos;)" tags="output file" />
+		  
+		  </ini_param>
+		</external>
+	</tool>
+</ttd>
