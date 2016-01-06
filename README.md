@@ -19,7 +19,7 @@ __Procedures:__
 
 - Copy the consensus2edta.ttd config file to the OpenMS installation path (e.g. C:\Program Files\OpenMS-2.0\share\OpenMS\TOOLS\EXTERNAL) in order to enable external the external tools for XIC extraction.
 
-- Load the DeMix.toppas pipeline in the TOPPAS program.
+- Load the __DeMix.toppas__ pipeline in the TOPPAS program.
 
 - Prepare centroid MS1 spectra in mzML format and load in __"Node 1"__ of the DeMix.toppas pipeline.
 
@@ -29,14 +29,18 @@ __Procedures:__
 
 - Modify __"Node 4"__ in the pipeline by choosing one of the idXML file (the best run) as the reference run. RT scales of other runs will be re-calibrated to the scale of the reference run after alignment.
 
+- Modify __"Node 17"__ in the pipeline, set the __converter_script__ option to point to the python script: __consensus2edta.py__
+
 - Execute the pipeline in TOPPAS.
 
-- Collect output files from processes of TextExporter (output 16) and EICExtractor (output 20), and do the post processing as shown in the example __iPython notebook (FIXME: not uploaded yet, sorry)__.
+- Collect output files from processes of TextExporter (output 16) and EICExtractor (output 20), and do the post processing as shown in the example __iPython notebook__.
+
 
 ---
-__To Do:__
-* Example data
-* iPython notebook.
+
+__Download the example data set__   
+https://ki.box.com/s/15kv73pu2cvi4gwakzd6kdxcwch7dbl0
+
 
 ---
 ##### Reference
