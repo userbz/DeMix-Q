@@ -33,8 +33,15 @@ __Procedures:__
 
 - Execute the pipeline in TOPPAS.
 
-- Collect output files from processes of TextExporter (output 16) and EICExtractor (output 20), and do the post processing as shown in the example __iPython notebook__.
+- Collect output files from processes of TextExporter (output 16) and EICExtractor (output 20), and do the post processing as shown in the example __iPython notebook__ in the script folder.
 
+
+__Note: __  
+The example workflow is tested with high resolution Orbitrap (FTMS 70,000) datasets. You may need to adjust the parameters to fit with your dataset.
+
+Map RT alignment can be done without MS/MS identifications, or done with other tools then convert into the OpenMS-compatible format (i.e. trafoXML).
+
+For a large dataset (e.g. >10 samples), feature detection and linking may require considerable computing resources: CPU, RAM and disk space. 
 
 ---
 
@@ -44,7 +51,7 @@ https://ki.box.com/s/15kv73pu2cvi4gwakzd6kdxcwch7dbl0
 
 ---
 ##### Reference
-<ol> <li> Zhang, B., Kall, L. & Zubarev, R. A., (2016). DeMix-Q: Quantification-centered Data Processing Workflow. Molecular & Cellular Proteomics, mcp.O115.055475  
+<ol> <li> Zhang, B., Käll, L. & Zubarev, R. A., (2016). DeMix-Q: Quantification-centered Data Processing Workflow. Molecular & Cellular Proteomics, mcp.O115.055475  
 http://www.ncbi.nlm.nih.gov/pubmed/26729709 </li>
 
 <li>Zhang, B., Pirmoradian, M., Chernobrovkin, A., & Zubarev, R. A. (2014). DeMix Workflow for Efficient Identification of Co-fragmented Peptides in High Resolution Data-dependent Tandem Mass Spectrometry. Molecular & Cellular Proteomics : MCP. doi:10.1074/mcp.O114.038877
