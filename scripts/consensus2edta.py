@@ -1,5 +1,8 @@
 import csv, os, sys, pandas, numpy, re
-from StringIO import StringIO
+try:
+	from io import StringIO
+except:
+	from StringIO import StringIO
 
 isomass = 1.0033548378
 
@@ -54,7 +57,7 @@ if __name__ == '__main__':
     out_dir = os.path.abspath(sys.argv[4])
 
     outpath = os.path.join(out_dir,  os.path.basename(os.path.splitext(consensus)[0]) + ".edta" )
-    print outpath
+    print(outpath)
 
     cons, uapep, runsName = read_consensus(consensus)
     with open(outpath, 'w') as fh:
