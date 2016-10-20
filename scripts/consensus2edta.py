@@ -1,8 +1,5 @@
 import csv, os, sys, pandas, numpy, re
-try:
-	from io import StringIO
-except:
-	from StringIO import StringIO
+from six import StringIO
 
 isomass = 1.0033548378
 
