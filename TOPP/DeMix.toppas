@@ -190,7 +190,7 @@
         </NODE>
       </NODE>
     </NODE>
-    <NODE name="5" description="">
+    <NODE name="4" description="">
       <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
       <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
       <ITEM name="tool_name" value="InternalCalibration" type="string" description="" required="false" advanced="false" />
@@ -223,7 +223,7 @@
       <ITEM name="x_pos" value="200" type="double" description="" required="false" advanced="false" />
       <ITEM name="y_pos" value="220" type="double" description="" required="false" advanced="false" />
     </NODE>
-    <NODE name="7" description="">
+    <NODE name="6" description="">
       <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
       <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
       <ITEM name="tool_name" value="MapRTTransformer" type="string" description="" required="false" advanced="false" />
@@ -260,7 +260,7 @@
         </NODE>
       </NODE>
     </NODE>
-    <NODE name="6" description="">
+    <NODE name="5" description="">
       <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
       <ITEM name="toppas_type" value="tool" type="string" description="" required="false" advanced="false" />
       <ITEM name="tool_name" value="MapAlignerIdentification" type="string" description="" required="false" advanced="false" />
@@ -346,7 +346,7 @@
         </NODE>
       </NODE>
     </NODE>
-    <NODE name="8" description="">
+    <NODE name="7" description="">
       <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
       <ITEM name="toppas_type" value="output file list" type="string" description="" required="false" advanced="false" />
       <ITEM name="x_pos" value="200" type="double" description="" required="false" advanced="false" />
@@ -492,7 +492,7 @@
       <ITEM name="x_pos" value="-180" type="double" description="" required="false" advanced="false" />
       <ITEM name="y_pos" value="980" type="double" description="" required="false" advanced="false" />
     </NODE>
-    <NODE name="4" description="">
+    <NODE name="8" description="">
       <ITEM name="recycle_output" value="false" type="string" description="" required="false" advanced="false" />
       <ITEM name="toppas_type" value="merger" type="string" description="" required="false" advanced="false" />
       <ITEM name="x_pos" value="-180" type="double" description="" required="false" advanced="false" />
@@ -515,7 +515,7 @@
         <ITEM name="force" value="false" type="string" description="Overwrite tool specific checks." required="false" advanced="true" restrictions="true,false" />
         <ITEM name="test" value="false" type="string" description="Enables the test mode (needed for internal use only)" required="false" advanced="true" restrictions="true,false" />
         <NODE name="ETool" description="tool specific parameters">
-          <ITEM name="converter_script" value="" type="input-file" description="path to converter script" required="false" advanced="false" />
+          <ITEM name="converter_script" value="C:/Users/ZHANGBO/Documents/GitHub/DeMix-Q/scripts/consensus2edta.py" type="input-file" description="path to converter script" required="false" advanced="false" />
           <ITEM name="in" value="" type="input-file" description="consensus feature list from TextExporter (out)" required="false" advanced="false" />
           <ITEM name="decoy_mz_shift" value="50" type="double" description="m/z shift (PPM) for generating decoy features with 1 PPM random noise" required="false" advanced="false" />
           <ITEM name="decoy_RT_shift" value="300" type="double" description="RT shift (second) for generating decoy features with 5 second random noise" required="false" advanced="false" />
@@ -538,7 +538,7 @@
     </NODE>
     <NODE name="1" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="1/5" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="1/4" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
@@ -549,7 +549,7 @@
     </NODE>
     <NODE name="2" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="2/5" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="2/4" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
@@ -560,7 +560,7 @@
     </NODE>
     <NODE name="3" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="5/7" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="4/6" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
@@ -571,7 +571,7 @@
     </NODE>
     <NODE name="4" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="3/6" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="3/5" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
@@ -582,7 +582,7 @@
     </NODE>
     <NODE name="5" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="6/7" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="5/6" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="trafo_out" type="string" description="" required="false" advanced="false" />
@@ -593,7 +593,7 @@
     </NODE>
     <NODE name="6" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="6/10" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="5/10" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
@@ -604,7 +604,7 @@
     </NODE>
     <NODE name="7" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="7/9" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="6/9" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
@@ -626,7 +626,7 @@
     </NODE>
     <NODE name="9" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="7/8" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="6/7" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
@@ -637,7 +637,7 @@
     </NODE>
     <NODE name="10" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="2/6" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="2/5" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
@@ -725,18 +725,7 @@
     </NODE>
     <NODE name="18" description="">
       <NODE name="source/target" description="">
-        <ITEM name="" value="0/4" type="string" description="" required="false" advanced="false" />
-      </NODE>
-      <NODE name="source_out_param" description="">
-        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
-      </NODE>
-      <NODE name="target_in_param" description="">
-        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
-      </NODE>
-    </NODE>
-    <NODE name="19" description="">
-      <NODE name="source/target" description="">
-        <ITEM name="" value="4/18" type="string" description="" required="false" advanced="false" />
+        <ITEM name="" value="8/18" type="string" description="" required="false" advanced="false" />
       </NODE>
       <NODE name="source_out_param" description="">
         <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
@@ -745,7 +734,7 @@
         <ITEM name="" value="in" type="string" description="" required="false" advanced="false" />
       </NODE>
     </NODE>
-    <NODE name="20" description="">
+    <NODE name="19" description="">
       <NODE name="source/target" description="">
         <ITEM name="" value="14/16" type="string" description="" required="false" advanced="false" />
       </NODE>
@@ -756,7 +745,7 @@
         <ITEM name="" value="ETool:in" type="string" description="" required="false" advanced="false" />
       </NODE>
     </NODE>
-    <NODE name="21" description="">
+    <NODE name="20" description="">
       <NODE name="source/target" description="">
         <ITEM name="" value="16/18" type="string" description="" required="false" advanced="false" />
       </NODE>
@@ -765,6 +754,17 @@
       </NODE>
       <NODE name="target_in_param" description="">
         <ITEM name="" value="pos" type="string" description="" required="false" advanced="false" />
+      </NODE>
+    </NODE>
+    <NODE name="21" description="">
+      <NODE name="source/target" description="">
+        <ITEM name="" value="6/8" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="source_out_param" description="">
+        <ITEM name="" value="out" type="string" description="" required="false" advanced="false" />
+      </NODE>
+      <NODE name="target_in_param" description="">
+        <ITEM name="" value="__no_name__" type="string" description="" required="false" advanced="false" />
       </NODE>
     </NODE>
   </NODE>
