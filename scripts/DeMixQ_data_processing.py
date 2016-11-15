@@ -71,10 +71,10 @@ def read_eic(fn):
 
     with open(fn) as fh:
         eic_str = [StringIO() for _ in range(4)]
-        sample_header = [i for i in fh.__next__().rstrip().split(',')
+        sample_header = [i for i in next(fh).rstrip().split(',')
                          if i]  # sample row
-        fh.__next__()  # empty row
-        cols = fh.__next__().rstrip().split(',')  # quantity headers
+        next(fh)  # empty row
+        cols = next(fh).rstrip().split(',')  # quantity headers
         for ix in range(2, len(cols)):
             i = int((ix - 2) / 5)
             # rename columns according to sample names
@@ -269,8 +269,8 @@ def main():
     print('Average mass errors:\n', refdx[cppm0].mean())
     print('SD of mass errors:\n', refdx[cppm0].std())
 
-    fil_cols = zip(ic1x, crt0, crt1, cppm0, cppm1, ccv)
-    fil_cols_decoy = zip(dic1x, drt0, drt1, dppm0, dppm1, dcv)
+    fil_cols = list(zip(ic1x, crt0, crt1, cppm0, cppm1, ccv))
+    fil_cols_decoy = list(zip(dic1x, drt0, drt1, dppm0, dppm1, dcv))
 
     zscores = []
     for f in fil_cols:
@@ -307,8 +307,12 @@ def main():
     for f in fil_cols:
         score = np.array([np.sum(v * v) for v in testz[list(f[1:])].values])
         score = -np.log(score)
-        print(list(score > score_cutoff).count(True) / len(score))
-        dx[f[0]][list(score <= score_cutoff)] = 0  # XIC filter
+        score[np.isnan(score)] = -np.inf
+        fraction = sum(score > score_cutoff) * 100. / sum(np.isfinite(score))
+        print(f[0], '%.2f' % fraction, '%',
+              'Feature-EIC pairs passed the score cutoff.')
+        dx.loc[score <= score_cutoff, f[0]] = 0  # XIC filter
+        # print((score > score_cutoff).sum() / len(score))
 
     dx['medianEIC'] = dx[dx[ic1x] > 0][ic1x].median(axis=1)
     dx['e_overlap'] = [np.count_nonzero(i) for i in dx[ic1x].values]
@@ -329,7 +333,7 @@ def main():
     print("Unique peptide sequences:\t", len(dx.baseseq.unique()), '\n')
 
     icols = list(zip(ic0, ic1x))
-    print('Experiment', 'Features', 'Correlation', sep='\t')
+    print('Experiment', 'Features', 'Feature-EIC-correlation', sep='\t')
     for a in icols[:]:
         do = dx[pandas.notnull(dx[a[0]])]
         do = do[do[a[1]] > 0]
@@ -373,7 +377,7 @@ def main():
     data[ic0] = tmp.apply(np.exp2)  # converting back to linear scale
 
     fraction = (data[ic0].values == 1).sum() * 100 / data[ic0].values.size
-    print('\nFraction of missing values: %.2f' % fraction, r"%")
+    print('\nFraction of remaining missing values: %.2f' % fraction, r"%")
 
     fraction = len(data[data.peptide != '']) * 100. / data[ic0].__len__()
     print("\n%.2f" % fraction, r'%',
