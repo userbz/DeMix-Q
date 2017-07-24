@@ -314,7 +314,8 @@ def main():
         dx.loc[score <= score_cutoff, f[0]] = 0  # XIC filter
         # print((score > score_cutoff).sum() / len(score))
 
-    dx['medianEIC'] = dx[dx[ic1x] > 0][ic1x].median(axis=1)
+    # dx['medianEIC'] = dx[dx[ic1x] > 0][ic1x].median(axis=1)
+    dx['medianEIC'] = dx[ic1x].where(dx[ic1x] > 0).median(axis=1)
     dx['e_overlap'] = [np.count_nonzero(i) for i in dx[ic1x].values]
 
     print("Features before filtering:\t", len(dx))
